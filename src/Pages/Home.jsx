@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -9,11 +10,13 @@ function Home() {
         
         <div className="button-group">
           <button className="btn register-btn">
-            <a href="./register">Register New User</a>
+            {/* <a href="./register">Register New User</a> */}
+           <Link to="./register">Register New User</Link>
           </button>
           
           <button className="btn admin-btn">
-            <a href="./admindash">Admin Dashboard</a>
+            {/* <a href="./admindash">Admin Dashboard</a> */}
+            <Link to="./admindash">Admin Dashboard</Link>
           </button>
         </div>
       </div>

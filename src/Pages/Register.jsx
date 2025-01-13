@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './register.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -123,10 +123,9 @@ const Register = () => {
                 <button type="submit" className="register-button">Register</button>
             </form>
             <div className="login-link">
-                <p>Already have an account? <a href="/login">Log in here</a></p>
+                <p>Already have an account? <Link to="/login">Log in here</Link></p>
             </div>
         </div>
     );
 };
-
 export default Register;

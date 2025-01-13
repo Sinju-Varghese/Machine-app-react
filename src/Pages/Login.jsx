@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './login.css';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+Link
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
@@ -80,9 +80,9 @@ const Login = () => {
                         <button type="submit" className="login-button">Login</button>
                     </form>
                     <div className="register-link">
-                        <p>Don't have an account? <a href="/register">Register here</a></p>
+                        <p>Don't have an account? <Link to="/register">Register here</Link></p>
                     </div>
-                </>
+                </> 
             ) : (
                 <div className="user-list">
                     <h2>Welcome, {authenticatedUser.username}!</h2>
