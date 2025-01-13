@@ -23,7 +23,7 @@ const Admindash = () => {
         setCurrentUser(loggedInUser);
         setUsers(storedUsers);
     }, []);
-
+// handle edit
     const handleEdit = (user) => {
         setSelectedUser(user);
         setEditData({
