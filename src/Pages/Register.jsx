@@ -7,15 +7,15 @@ const Register = () => {
         username: '',
         email: '',
         password: '',
+        privilege: 'user'
     });
 
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    // Utility function to get and set local storage data
+
     const getLocalStorageData = (key) => JSON.parse(localStorage.getItem(key)) || [];
     const setLocalStorageData = (key, data) => localStorage.setItem(key, JSON.stringify(data));
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -24,55 +24,47 @@ const Register = () => {
         });
     };
 
-    // Validate form fields
     const validateForm = () => {
         const { username, email, password } = formData;
-
         if (!username.trim()) return 'Username is required.';
         if (!email.trim()) return 'Email is required.';
         if (!/\S+@\S+\.\S+/.test(email)) return 'Enter a valid email address.';
         if (password.length < 6) return 'Password must be at least 6 characters long.';
-        
         return null;
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validate the form
         const error = validateForm();
         if (error) {
             setErrorMessage(error);
             return;
         }
 
-        // Get existing users from local storage
         const users = getLocalStorageData('users');
-
-        // Check if the email already exists
         const userExists = users.some((user) => user.email === formData.email);
         if (userExists) {
             setErrorMessage('User with this email already exists.');
             return;
         }
 
-        // Add the new user to local storage
         const newUser = {
-            id: Date.now(), // Unique ID for the user
+            id: Date.now(),
             username: formData.username,
             email: formData.email,
             password: formData.password,
+            privilege: formData.privilege,
+            status: 'active'
         };
 
         users.push(newUser);
         setLocalStorageData('users', users);
 
-        // Clear the form and error message
-        setFormData({ username: '', email: '', password: '' });
+        setFormData({ username: '', email: '', password: '', privilege: 'user' });
         setErrorMessage('');
         alert('User registered successfully!');
-        navigate('/login'); 
+        navigate('/login');
     };
 
     return (
@@ -115,6 +107,18 @@ const Register = () => {
                         onChange={handleChange}
                         required
                     />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="privilege">Privilege</label>
+                    <select
+                        id="privilege"
+                        name="privilege"
+                        value={formData.privilege}
+                        onChange={handleChange}
+                    >
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
                 </div>
                 <button type="submit" className="register-button">Register</button>
             </form>
